@@ -1,0 +1,227 @@
+[
+    {
+        "id": "117dac9e.0ab6b3",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "d0aa5947.567bf8",
+        "type": "function",
+        "z": "117dac9e.0ab6b3",
+        "name": "Emotion Recognition algorithmia",
+        "func": "var algorithmia = global.get('algorithmia');\n\nvar client = algorithmia(\"simveB7okFMrXh8YPEzhL/npVkT1\");\n\ninput = {\n    \"image\": \"data:image/png;base64,\"+msg.payload,\n    \"numResults\": 7\n}\n\nclient.algo(\"deeplearning/EmotionRecognitionCNNMBP/0.1.2\").pipe(input).then(\n    function(output) {\n  if(output.error) return console.error(\"error: \" + output.error);\n  console.log(output.result);\n  node.send({payload:output.result});\n});",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 680,
+        "y": 260,
+        "wires": [
+            [
+                "a15b1b9d.80353",
+                "930e717b.785df8"
+            ]
+        ]
+    },
+    {
+        "id": "a15b1b9d.80353",
+        "type": "debug",
+        "z": "117dac9e.0ab6b3",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 950,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "9885c18d.6a9a88",
+        "type": "template",
+        "z": "117dac9e.0ab6b3",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<img width=\"320px\" height=\"240px\" src=\"data:image/png;base64,{{{payload}}}\">",
+        "output": "str",
+        "x": 600,
+        "y": 180,
+        "wires": [
+            [
+                "4102ef85.405f3"
+            ]
+        ]
+    },
+    {
+        "id": "4102ef85.405f3",
+        "type": "ui_template",
+        "z": "117dac9e.0ab6b3",
+        "group": "cda7a1cc.ed4c3",
+        "name": "Image",
+        "order": 1,
+        "width": "7",
+        "height": "6",
+        "format": "<div ng-bind-html=\"msg.payload\"></div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "templateScope": "local",
+        "x": 770,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "626f6f7c.8768d",
+        "type": "camera",
+        "z": "117dac9e.0ab6b3",
+        "name": "",
+        "x": 210,
+        "y": 180,
+        "wires": [
+            [
+                "a927ec4b.6821b",
+                "4fab6d52.d075c4"
+            ]
+        ]
+    },
+    {
+        "id": "39dc9c43.a84a64",
+        "type": "debug",
+        "z": "117dac9e.0ab6b3",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "x": 590,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "21220ea8.03e0a2",
+        "type": "debug",
+        "z": "117dac9e.0ab6b3",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "x": 630,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "a927ec4b.6821b",
+        "type": "base64",
+        "z": "117dac9e.0ab6b3",
+        "name": "",
+        "action": "",
+        "property": "payload",
+        "x": 380,
+        "y": 180,
+        "wires": [
+            [
+                "39dc9c43.a84a64",
+                "9885c18d.6a9a88",
+                "d0aa5947.567bf8"
+            ]
+        ]
+    },
+    {
+        "id": "4fab6d52.d075c4",
+        "type": "visual-recognition-v3",
+        "z": "117dac9e.0ab6b3",
+        "name": "",
+        "vr-service-endpoint": "https://gateway.watsonplatform.net/visual-recognition/api",
+        "image-feature": "detectFaces",
+        "lang": "",
+        "x": 410,
+        "y": 380,
+        "wires": [
+            [
+                "21220ea8.03e0a2",
+                "26962462.7beeac"
+            ]
+        ]
+    },
+    {
+        "id": "26962462.7beeac",
+        "type": "ui_text",
+        "z": "117dac9e.0ab6b3",
+        "group": "cda7a1cc.ed4c3",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Gender",
+        "format": "{{msg.result.images[0].faces[0].gender.gender}}",
+        "layout": "row-spread",
+        "x": 640,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "930e717b.785df8",
+        "type": "ui_text",
+        "z": "117dac9e.0ab6b3",
+        "group": "cda7a1cc.ed4c3",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Dominant Facial Emotional Expression",
+        "format": "{{msg.payload.results[0][1]}}",
+        "layout": "row-spread",
+        "x": 1040,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "4a9674ca.b54afc",
+        "type": "inject",
+        "z": "117dac9e.0ab6b3",
+        "name": "",
+        "topic": "",
+        "payload": "[]",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 450,
+        "y": 320,
+        "wires": [
+            [
+                "4102ef85.405f3",
+                "930e717b.785df8",
+                "26962462.7beeac"
+            ]
+        ]
+    },
+    {
+        "id": "cda7a1cc.ed4c3",
+        "type": "ui_group",
+        "z": "",
+        "name": "Take a Photo!! :)",
+        "tab": "c6f60837.2a74e8",
+        "disp": true,
+        "width": "7",
+        "collapse": false
+    },
+    {
+        "id": "c6f60837.2a74e8",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]
