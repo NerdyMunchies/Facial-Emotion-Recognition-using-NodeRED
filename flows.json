@@ -1,15 +1,7 @@
-[
-    {
-        "id": "117dac9e.0ab6b3",
-        "type": "tab",
-        "label": "Flow 1",
-        "disabled": false,
-        "info": ""
-    },
-    {
-        "id": "d0aa5947.567bf8",
+[{
+        "id": "59c0aa97.4c1fa4",
         "type": "function",
-        "z": "117dac9e.0ab6b3",
+        "z": "a0be30da.c2f178",
         "name": "Emotion Recognition algorithmia",
         "func": "var algorithmia = global.get('algorithmia');\n\nvar client = algorithmia(\"simveB7okFMrXh8YPEzhL/npVkT1\");\n\ninput = {\n    \"image\": \"data:image/png;base64,\"+msg.payload,\n    \"numResults\": 7\n}\n\nclient.algo(\"deeplearning/EmotionRecognitionCNNMBP/0.1.2\").pipe(input).then(\n    function(output) {\n  if(output.error) return console.error(\"error: \" + output.error);\n  console.log(output.result);\n  node.send({payload:output.result});\n});",
         "outputs": 1,
@@ -18,15 +10,15 @@
         "y": 260,
         "wires": [
             [
-                "a15b1b9d.80353",
-                "930e717b.785df8"
+                "41c98cef.dd2fbc",
+                "b52d1cca.983e88"
             ]
         ]
     },
     {
-        "id": "a15b1b9d.80353",
+        "id": "41c98cef.dd2fbc",
         "type": "debug",
-        "z": "117dac9e.0ab6b3",
+        "z": "a0be30da.c2f178",
         "name": "",
         "active": true,
         "tosidebar": true,
@@ -38,9 +30,9 @@
         "wires": []
     },
     {
-        "id": "9885c18d.6a9a88",
+        "id": "22c55425.d64d5c",
         "type": "template",
-        "z": "117dac9e.0ab6b3",
+        "z": "a0be30da.c2f178",
         "name": "",
         "field": "payload",
         "fieldType": "msg",
@@ -52,14 +44,14 @@
         "y": 180,
         "wires": [
             [
-                "4102ef85.405f3"
+                "67452c64.ff5a64"
             ]
         ]
     },
     {
-        "id": "4102ef85.405f3",
+        "id": "67452c64.ff5a64",
         "type": "ui_template",
-        "z": "117dac9e.0ab6b3",
+        "z": "a0be30da.c2f178",
         "group": "cda7a1cc.ed4c3",
         "name": "Image",
         "order": 1,
@@ -76,23 +68,23 @@
         ]
     },
     {
-        "id": "626f6f7c.8768d",
+        "id": "72367124.e5ab1",
         "type": "camera",
-        "z": "117dac9e.0ab6b3",
+        "z": "a0be30da.c2f178",
         "name": "",
         "x": 210,
         "y": 180,
         "wires": [
             [
-                "a927ec4b.6821b",
-                "4fab6d52.d075c4"
+                "2901d702.764da8",
+                "a2db5f4a.d7735"
             ]
         ]
     },
     {
-        "id": "39dc9c43.a84a64",
+        "id": "39ad1cae.7a60bc",
         "type": "debug",
-        "z": "117dac9e.0ab6b3",
+        "z": "a0be30da.c2f178",
         "name": "",
         "active": true,
         "tosidebar": true,
@@ -104,9 +96,9 @@
         "wires": []
     },
     {
-        "id": "21220ea8.03e0a2",
+        "id": "b6b41165.70b778",
         "type": "debug",
-        "z": "117dac9e.0ab6b3",
+        "z": "a0be30da.c2f178",
         "name": "",
         "active": true,
         "tosidebar": true,
@@ -118,9 +110,9 @@
         "wires": []
     },
     {
-        "id": "a927ec4b.6821b",
+        "id": "2901d702.764da8",
         "type": "base64",
-        "z": "117dac9e.0ab6b3",
+        "z": "a0be30da.c2f178",
         "name": "",
         "action": "",
         "property": "payload",
@@ -128,16 +120,16 @@
         "y": 180,
         "wires": [
             [
-                "39dc9c43.a84a64",
-                "9885c18d.6a9a88",
-                "d0aa5947.567bf8"
+                "39ad1cae.7a60bc",
+                "22c55425.d64d5c",
+                "59c0aa97.4c1fa4"
             ]
         ]
     },
     {
-        "id": "4fab6d52.d075c4",
+        "id": "a2db5f4a.d7735",
         "type": "visual-recognition-v3",
-        "z": "117dac9e.0ab6b3",
+        "z": "a0be30da.c2f178",
         "name": "",
         "vr-service-endpoint": "https://gateway.watsonplatform.net/visual-recognition/api",
         "image-feature": "detectFaces",
@@ -146,15 +138,15 @@
         "y": 380,
         "wires": [
             [
-                "21220ea8.03e0a2",
-                "26962462.7beeac"
+                "b6b41165.70b778",
+                "fa0eab89.a6abe8"
             ]
         ]
     },
     {
-        "id": "26962462.7beeac",
+        "id": "fa0eab89.a6abe8",
         "type": "ui_text",
-        "z": "117dac9e.0ab6b3",
+        "z": "a0be30da.c2f178",
         "group": "cda7a1cc.ed4c3",
         "order": 2,
         "width": 0,
@@ -168,9 +160,9 @@
         "wires": []
     },
     {
-        "id": "930e717b.785df8",
+        "id": "b52d1cca.983e88",
         "type": "ui_text",
-        "z": "117dac9e.0ab6b3",
+        "z": "a0be30da.c2f178",
         "group": "cda7a1cc.ed4c3",
         "order": 3,
         "width": 0,
@@ -184,9 +176,9 @@
         "wires": []
     },
     {
-        "id": "4a9674ca.b54afc",
+        "id": "7f3bc068.3746b8",
         "type": "inject",
-        "z": "117dac9e.0ab6b3",
+        "z": "a0be30da.c2f178",
         "name": "",
         "topic": "",
         "payload": "[]",
@@ -199,11 +191,77 @@
         "y": 320,
         "wires": [
             [
-                "4102ef85.405f3",
-                "930e717b.785df8",
-                "26962462.7beeac"
+                "67452c64.ff5a64",
+                "b52d1cca.983e88",
+                "fa0eab89.a6abe8"
             ]
         ]
+    },
+    {
+        "id": "51ae54d.506a8ac",
+        "type": "http request",
+        "z": "a0be30da.c2f178",
+        "name": "",
+        "method": "POST",
+        "ret": "obj",
+        "url": "https://api-face.sightcorp.com/api/detect/",
+        "tls": "",
+        "x": 770,
+        "y": 600,
+        "wires": [
+            [
+                "37aa81ee.8bf50e"
+            ]
+        ]
+    },
+    {
+        "id": "853497ac.58c958",
+        "type": "inject",
+        "z": "a0be30da.c2f178",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 260,
+        "y": 600,
+        "wires": [
+            [
+                "260e30a6.b371f8"
+            ]
+        ]
+    },
+    {
+        "id": "260e30a6.b371f8",
+        "type": "function",
+        "z": "a0be30da.c2f178",
+        "name": "set payload and headers",
+        "func": "msg.payload = {\"app_key\": \"e8fa8fe6c9f3466e8414f4793babefc2\", \"url\":\"http://www.naircare.co.uk/images/main/hub/bg-face.jpg\"};\n\nmsg.headers={\n    \"Content-Type\": \"application/x-www-form-urlencoded\"\n  }\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 530,
+        "y": 600,
+        "wires": [
+            [
+                "51ae54d.506a8ac"
+            ]
+        ]
+    },
+    {
+        "id": "37aa81ee.8bf50e",
+        "type": "debug",
+        "z": "a0be30da.c2f178",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "x": 950,
+        "y": 600,
+        "wires": []
     },
     {
         "id": "cda7a1cc.ed4c3",
