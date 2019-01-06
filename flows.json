@@ -1,184 +1,339 @@
-[{
-        "id": "59c0aa97.4c1fa4",
-        "type": "function",
-        "z": "a0be30da.c2f178",
-        "name": "Emotion Recognition algorithmia",
-        "func": "var algorithmia = global.get('algorithmia');\n\nvar client = algorithmia(\"simveB7okFMrXh8YPEzhL/npVkT1\");\n\ninput = {\n    \"image\": \"data:image/png;base64,\"+msg.payload,\n    \"numResults\": 7\n}\n\nclient.algo(\"deeplearning/EmotionRecognitionCNNMBP/0.1.2\").pipe(input).then(\n    function(output) {\n  if(output.error) return console.error(\"error: \" + output.error);\n  console.log(output.result);\n  node.send({payload:output.result});\n});",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 680,
-        "y": 260,
+[
+    {
+        "id": "9fd04fc9.145918",
+        "type": "tab",
+        "label": "Emotion Recognition",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "a63afdbb.b5ec3",
+        "type": "tab",
+        "label": "Sample Web Page",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "52bdd29d.df101c",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "42b92ad.7d002d4",
+        "type": "ui_group",
+        "z": "",
+        "name": "Facial Emotion Recognition",
+        "tab": "52bdd29d.df101c",
+        "disp": false,
+        "width": "7",
+        "collapse": false
+    },
+    {
+        "id": "8e4a5b04.33e238",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-dark",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#097479",
+                    "value": "#097479",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#097479",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#000000",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#0eb8c0",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#555555",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#eeeeee",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#097479",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey"
+            }
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "aceab0b5.2afc48",
+        "type": "http response",
+        "z": "a63afdbb.b5ec3",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 1290,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "5cea543e.b89f7c",
+        "type": "http in",
+        "z": "a63afdbb.b5ec3",
+        "name": "",
+        "url": "/samplewebapp",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 120,
+        "y": 280,
         "wires": [
             [
-                "41c98cef.dd2fbc",
-                "b52d1cca.983e88"
+                "4a14798a.8cad3"
             ]
         ]
     },
     {
-        "id": "41c98cef.dd2fbc",
+        "id": "4a14798a.8cad3",
+        "type": "change",
+        "z": "a63afdbb.b5ec3",
+        "name": "Headers",
+        "rules": [
+            {
+                "t": "set",
+                "p": "headers",
+                "pt": "msg",
+                "to": "{\"Content-Type\":\"text/plain\"}",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 320,
+        "y": 280,
+        "wires": [
+            [
+                "deb20294.6e909"
+            ]
+        ]
+    },
+    {
+        "id": "4d390745.d656c8",
+        "type": "template",
+        "z": "a63afdbb.b5ec3",
+        "name": "HTML",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <title>Cards of Disability (people of determination)s</title>\n  <meta charset=\"utf-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  <link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\">\n  <link href=\"https://fonts.googleapis.com/css?family=Lato\" rel=\"stylesheet\" type=\"text/css\">\n  <link href=\"https://fonts.googleapis.com/css?family=Montserrat\" rel=\"stylesheet\" type=\"text/css\">\n  <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js\"></script>\n  <script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js\"></script>\n  <style>\n  {{style}}\n  </style>\n</head>\n<body id=\"myPage\" data-spy=\"scroll\" data-target=\".navbar\" data-offset=\"50\">\n\n<nav class=\"navbar navbar-default navbar-fixed-top\">\n  <div class=\"container-fluid\">\n    <div class=\"navbar-header\">\n      <button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\"#myNavbar\">\n        <span class=\"icon-bar\"></span>\n        <span class=\"icon-bar\"></span>\n        <span class=\"icon-bar\"></span>                        \n      </button>\n      <a class=\"navbar-brand\" href=\"#myPage\">People of Determination</a>\n    </div>\n    <div class=\"collapse navbar-collapse\" id=\"myNavbar\">\n      <ul class=\"nav navbar-nav navbar-right\">\n        <li><a href=\"#myPage\">HOME</a></li>\n        <li><a href=\"#podCards\">PEOPLE OF DETERMINATION CARDS</a></li>\n        <li><a href=\"#contact\">CONTACT</a></li>\n      </ul>\n    </div>\n  </div>\n</nav>\n\n<div id=\"myCarousel\" class=\"carousel slide\" data-ride=\"carousel\">\n    <!-- Indicators -->\n    <ol class=\"carousel-indicators\">\n      <li data-target=\"#myCarousel\" data-slide-to=\"0\" class=\"active\"></li>\n      <li data-target=\"#myCarousel\" data-slide-to=\"1\"></li>\n    </ol>\n\n    <!-- Wrapper for slides -->\n    <div class=\"carousel-inner\" role=\"listbox\">\n      <div class=\"item active\">\n        <img src=\"https://ibm.box.com/shared/static/751np5d09ow1b7yey76uwqlwahztgfks.jpg\" alt=\"People of Determination\" width=\"100%\" height=\"700\">\n        <div class=\"carousel-caption\">\n          <h3>People of Determination</h3>\n          <p>Dubai cares about people of determination irrespective of whether they are citizens, residents or visitors. The UAE Guardian's Association provides social and psychological support for parents and guardians of people of determination.</p>\n        </div>      \n      </div>\n    \n      <div class=\"item\">\n        <img src=\"https://ibm.box.com/shared/static/2jb36scajyaxr9d6lxcidvmb89gmjxer.jpg\" alt=\"People of Determination Cards\" width=\"100%\" height=\"700\">\n        <div class=\"carousel-caption\">\n          <h3>People of Determination Cards</h3>\n          <p>Cards of Disability (people of determination) is a data set for personal card issued by Ministry of Community Development to people of determination year2016. It is considered to be an official document indicating that the holder is disabled to ensure the rights and services established in the Federal Persons with Disabilities Law No. 29 of 2006 and the regulations and decisions issued in implementation thereof. (http://data.bayanat.ae/en_GB/dataset/card-for-people-with-disabilities-people-of-determination)</p>\n        </div>      \n      </div>\n    </div>\n\n    <!-- Left and right controls -->\n    <a class=\"left carousel-control\" href=\"#myCarousel\" role=\"button\" data-slide=\"prev\">\n      <span class=\"glyphicon glyphicon-chevron-left\" aria-hidden=\"true\"></span>\n      <span class=\"sr-only\">Previous</span>\n    </a>\n    <a class=\"right carousel-control\" href=\"#myCarousel\" role=\"button\" data-slide=\"next\">\n      <span class=\"glyphicon glyphicon-chevron-right\" aria-hidden=\"true\"></span>\n      <span class=\"sr-only\">Next</span>\n    </a>\n</div>\n\n<!-- Container (The podCards Section) -->\n<div id=\"podCards\" class=\"container text-center\">\n  <h3>PEOPLE OF DETERMINATION CARDS</h3>\n  <p><em>In most countries, signs pointing out wheelchair ramps say “disabled access”. In the UAE, however, they say “people of determination”. The new term was launched in April 2017 by HH Sheikh Mohammed bin Rashid Al Maktoum, vice president of the UAE and ruler of Dubai, as part of his national strategy for empowering people with disabilities.</em></p>\n  <p>Cards of Disability (people of determination) is a data set for personal card issued by Ministry of Community Development to people of determination year2016. It is considered to be an official document indicating that the holder is disabled to ensure the rights and services established in the Federal Persons with Disabilities Law No. 29 of 2006 and the regulations and decisions issued in implementation thereof.</p>\n    <table id=\"podCards\">\n      <tr>\n        <th>Age Groups</th>\n        <th>Emirate</th>\n        <th>Citizens/Non-Citizens</th>\n        <th>Type of Disability</th>\n        <th>Gender</th>\n        <th>Year of birth</th>\n        <th>Issue Date</th>\n        <th>Nationality</th>\n      </tr>\n      \n      {{#payload}}\n      <tr>\n        <td>{{{Age Groups}}}</td>\n        <td>{{{Emirate}}}</td>\n        <td>{{{Citizens-Non-Citizens}}}</td>\n        <td>{{{type of disability}}}</td>\n        <td>{{{Gender}}}</td>\n        <td>{{{Year of birth}}}</td>\n        <td>{{{Issue Date}}}</td>\n        <td>{{{nationality}}}</td>\n      </tr>\n    {{/payload}}\n    </table>\n  <br>\n</div>\n\n<!-- Container (Contact Section) -->\n<div id=\"contact\" class=\"container\">\n  <h3 class=\"text-center\">Contact</h3>\n  <p class=\"text-center\"><em>Details of who to contact in case of emergency</em></p>\n\n  <div class=\"row\">\n    <div class=\"col-md-4\">\n      <p><span class=\"glyphicon glyphicon-map-marker\"></span>  Some location</p>\n      <p><span class=\"glyphicon glyphicon-phone\"></span>  Phone: +123 45 6666666</p>\n      <p><span class=\"glyphicon glyphicon-envelope\"></span>  Email: someemail@email.com</p>\n  <br> \n  </div>\n  </div>\n  </div>\n\n\n<!-- Footer -->\n<footer class=\"text-center\">\n  <a class=\"up-arrow\" href=\"#myPage\" data-toggle=\"tooltip\" title=\"TO TOP\">\n    <span class=\"glyphicon glyphicon-chevron-up\"></span>\n  </a><br><br>\n  <p>Built By <a href=\"\" data-toggle=\"tooltip\" title=\"Developer Experience Advocate\">Mahitab Hassan</a>\n</footer>\n\n<script>\n$(document).ready(function(){\n  // Initialize Tooltip\n  $('[data-toggle=\"tooltip\"]').tooltip(); \n  \n  // Add smooth scrolling to all links in navbar + footer link\n  $(\".navbar a, footer a[href='#myPage']\").on('click', function(event) {\n\n    // Make sure this.hash has a value before overriding default behavior\n    if (this.hash !== \"\") {\n\n      // Prevent default anchor click behavior\n      event.preventDefault();\n\n      // Store hash\n      var hash = this.hash;\n\n      // Using jQuery's animate() method to add smooth page scroll\n      // The optional number (900) specifies the number of milliseconds it takes to scroll to the specified area\n      $('html, body').animate({\n        scrollTop: $(hash).offset().top\n      }, 900, function(){\n   \n        // Add hash (#) to URL when done scrolling (default click behavior)\n        window.location.hash = hash;\n      });\n    } // End if\n  });\n})\n</script>\n\n</body>\n</html>",
+        "output": "str",
+        "x": 1150,
+        "y": 280,
+        "wires": [
+            [
+                "aceab0b5.2afc48"
+            ]
+        ]
+    },
+    {
+        "id": "deb20294.6e909",
+        "type": "http request",
+        "z": "a63afdbb.b5ec3",
+        "name": "Get Cards of People of Determination",
+        "method": "GET",
+        "ret": "obj",
+        "url": "http://data.bayanat.ae/api/action/datastore_search?resource_id=2bb19373-8ab6-4d67-9d51-f820709fb29e",
+        "tls": "",
+        "x": 570,
+        "y": 280,
+        "wires": [
+            [
+                "2ab13d62.3aee7a"
+            ]
+        ]
+    },
+    {
+        "id": "2ab13d62.3aee7a",
+        "type": "change",
+        "z": "a63afdbb.b5ec3",
+        "name": "Extract Records",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.result.records",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 840,
+        "y": 280,
+        "wires": [
+            [
+                "f680e10c.fffa6"
+            ]
+        ]
+    },
+    {
+        "id": "f680e10c.fffa6",
+        "type": "template",
+        "z": "a63afdbb.b5ec3",
+        "name": "CSS",
+        "field": "style",
+        "fieldType": "msg",
+        "format": "css",
+        "syntax": "mustache",
+        "template": "table {\n  font-family: arial, sans-serif;\n  border-collapse: collapse;\n  width: 100%;\n}\n\ntd, th {\n  border: 1px solid #dddddd;\n  text-align: left;\n  padding: 8px;\n}\n\ntr:nth-child(even) {\n  background-color: #dddddd;\n}\n\nbody {\n      font: 400 15px/1.8 Lato, sans-serif;\n      color: #777;\n  }\n  h3 {\n      margin: 10px 0 30px 0;\n      letter-spacing: 10px;      \n      font-size: 20px;\n      color: #111;\n  }\n  .container {\n      padding: 80px 120px;\n  }\n\n  .carousel-inner img {\n      -webkit-filter: grayscale(90%);\n      filter: grayscale(90%); /* make all photos black and white */ \n      width: 100%; /* Set width to 100% */\n      margin: auto;\n  }\n  .carousel-caption h3 {\n      color: #fff !important;\n  }\n  @media (max-width: 600px) {\n    .carousel-caption {\n      display: none; /* Hide the carousel text when the screen is less than 600 pixels wide */\n    }\n  }\n\n  .nav-tabs li a {\n      color: #777;\n  }\n  .navbar {\n      font-family: Montserrat, sans-serif;\n      margin-bottom: 0;\n      background-color: #2d2d30;\n      border: 0;\n      font-size: 11px !important;\n      letter-spacing: 4px;\n      opacity: 0.9;\n  }\n  .navbar li a, .navbar .navbar-brand { \n      color: #d5d5d5 !important;\n  }\n  .navbar-nav li a:hover {\n      color: #fff !important;\n  }\n  .navbar-nav li.active a {\n      color: #fff !important;\n      background-color: #29292c !important;\n  }\n  .navbar-default .navbar-toggle {\n      border-color: transparent;\n  }\n\n  footer {\n      background-color: #2d2d30;\n      color: #f5f5f5;\n      padding: 32px;\n  }\n  footer a {\n      color: #f5f5f5;\n  }\n  footer a:hover {\n      color: #777;\n      text-decoration: none;\n  }  \n",
+        "output": "str",
+        "x": 1010,
+        "y": 280,
+        "wires": [
+            [
+                "4d390745.d656c8"
+            ]
+        ]
+    },
+    {
+        "id": "23796f71.fb8648",
+        "type": "function",
+        "z": "9fd04fc9.145918",
+        "name": "Emotion Recognition Face++",
+        "func": "var fpp = global.get('fpp');\n\nfpp.setApiKey('<APIKEY>');\n\nfpp.setApiSecret('<APISECRET>');\n \n \nvar parameters = {\n \nreturn_attributes: 'gender,age,emotion',\nimage_base64: msg.payload\n \n};\n \nfpp.post('/detect', parameters, function(err, res) {\n \n    node.send({payload:res});\n \n});\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 580,
+        "y": 300,
+        "wires": [
+            [
+                "d8c51ce7.982ca8",
+                "722c1853.7d77"
+            ]
+        ]
+    },
+    {
+        "id": "d8c51ce7.982ca8",
         "type": "debug",
-        "z": "a0be30da.c2f178",
+        "z": "9fd04fc9.145918",
         "name": "",
         "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "false",
-        "x": 950,
-        "y": 260,
+        "complete": "true",
+        "x": 850,
+        "y": 240,
         "wires": []
     },
     {
-        "id": "22c55425.d64d5c",
+        "id": "cbe6eaea.307d9",
         "type": "template",
-        "z": "a0be30da.c2f178",
+        "z": "9fd04fc9.145918",
         "name": "",
         "field": "payload",
         "fieldType": "msg",
         "format": "handlebars",
         "syntax": "mustache",
-        "template": "<img width=\"320px\" height=\"240px\" src=\"data:image/png;base64,{{{payload}}}\">",
+        "template": "<img width=\"360px\" height=\"280px\" src=\"data:image/png;base64,{{{payload}}}\">",
         "output": "str",
-        "x": 600,
-        "y": 180,
+        "x": 520,
+        "y": 240,
         "wires": [
             [
-                "67452c64.ff5a64"
+                "982649b4.c20f2"
             ]
         ]
     },
     {
-        "id": "67452c64.ff5a64",
-        "type": "ui_template",
-        "z": "a0be30da.c2f178",
-        "group": "cda7a1cc.ed4c3",
-        "name": "Image",
-        "order": 1,
-        "width": "7",
-        "height": "6",
-        "format": "<div ng-bind-html=\"msg.payload\"></div>",
-        "storeOutMessages": true,
-        "fwdInMessages": true,
-        "templateScope": "local",
-        "x": 770,
-        "y": 180,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "72367124.e5ab1",
-        "type": "camera",
-        "z": "a0be30da.c2f178",
-        "name": "",
-        "x": 210,
-        "y": 180,
-        "wires": [
-            [
-                "2901d702.764da8",
-                "a2db5f4a.d7735"
-            ]
-        ]
-    },
-    {
-        "id": "39ad1cae.7a60bc",
+        "id": "688c6bdb.a93f2c",
         "type": "debug",
-        "z": "a0be30da.c2f178",
+        "z": "9fd04fc9.145918",
         "name": "",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
         "complete": "true",
-        "x": 590,
-        "y": 120,
-        "wires": []
-    },
-    {
-        "id": "b6b41165.70b778",
-        "type": "debug",
-        "z": "a0be30da.c2f178",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "x": 630,
-        "y": 380,
-        "wires": []
-    },
-    {
-        "id": "2901d702.764da8",
-        "type": "base64",
-        "z": "a0be30da.c2f178",
-        "name": "",
-        "action": "",
-        "property": "payload",
-        "x": 380,
+        "x": 510,
         "y": 180,
-        "wires": [
-            [
-                "39ad1cae.7a60bc",
-                "22c55425.d64d5c",
-                "59c0aa97.4c1fa4"
-            ]
-        ]
-    },
-    {
-        "id": "a2db5f4a.d7735",
-        "type": "visual-recognition-v3",
-        "z": "a0be30da.c2f178",
-        "name": "",
-        "vr-service-endpoint": "https://gateway.watsonplatform.net/visual-recognition/api",
-        "image-feature": "detectFaces",
-        "lang": "",
-        "x": 410,
-        "y": 380,
-        "wires": [
-            [
-                "b6b41165.70b778",
-                "fa0eab89.a6abe8"
-            ]
-        ]
-    },
-    {
-        "id": "fa0eab89.a6abe8",
-        "type": "ui_text",
-        "z": "a0be30da.c2f178",
-        "group": "cda7a1cc.ed4c3",
-        "order": 2,
-        "width": 0,
-        "height": 0,
-        "name": "",
-        "label": "Gender",
-        "format": "{{msg.result.images[0].faces[0].gender.gender}}",
-        "layout": "row-spread",
-        "x": 640,
-        "y": 440,
         "wires": []
     },
     {
-        "id": "b52d1cca.983e88",
-        "type": "ui_text",
-        "z": "a0be30da.c2f178",
-        "group": "cda7a1cc.ed4c3",
-        "order": 3,
-        "width": 0,
-        "height": 0,
-        "name": "",
-        "label": "Dominant Facial Emotional Expression",
-        "format": "{{msg.payload.results[0][1]}}",
-        "layout": "row-spread",
-        "x": 1040,
-        "y": 320,
-        "wires": []
-    },
-    {
-        "id": "7f3bc068.3746b8",
+        "id": "163d88ef.82dec7",
         "type": "inject",
-        "z": "a0be30da.c2f178",
+        "z": "9fd04fc9.145918",
         "name": "",
         "topic": "",
         "payload": "[]",
@@ -187,99 +342,109 @@
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
-        "x": 450,
-        "y": 320,
-        "wires": [
-            [
-                "67452c64.ff5a64",
-                "b52d1cca.983e88",
-                "fa0eab89.a6abe8"
-            ]
-        ]
-    },
-    {
-        "id": "51ae54d.506a8ac",
-        "type": "http request",
-        "z": "a0be30da.c2f178",
-        "name": "",
-        "method": "POST",
-        "ret": "obj",
-        "url": "https://api-face.sightcorp.com/api/detect/",
-        "tls": "",
-        "x": 770,
-        "y": 600,
-        "wires": [
-            [
-                "37aa81ee.8bf50e"
-            ]
-        ]
-    },
-    {
-        "id": "853497ac.58c958",
-        "type": "inject",
-        "z": "a0be30da.c2f178",
-        "name": "",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "x": 260,
-        "y": 600,
-        "wires": [
-            [
-                "260e30a6.b371f8"
-            ]
-        ]
-    },
-    {
-        "id": "260e30a6.b371f8",
-        "type": "function",
-        "z": "a0be30da.c2f178",
-        "name": "set payload and headers",
-        "func": "msg.payload = {\"app_key\": \"e8fa8fe6c9f3466e8414f4793babefc2\", \"url\":\"http://www.naircare.co.uk/images/main/hub/bg-face.jpg\"};\n\nmsg.headers={\n    \"Content-Type\": \"application/x-www-form-urlencoded\"\n  }\n\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
         "x": 530,
-        "y": 600,
+        "y": 360,
         "wires": [
             [
-                "51ae54d.506a8ac"
+                "982649b4.c20f2",
+                "1f758a49.24f246"
             ]
         ]
     },
     {
-        "id": "37aa81ee.8bf50e",
-        "type": "debug",
-        "z": "a0be30da.c2f178",
+        "id": "9d832fd5.548878",
+        "type": "camera",
+        "z": "9fd04fc9.145918",
         "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "x": 950,
-        "y": 600,
+        "x": 130,
+        "y": 240,
+        "wires": [
+            [
+                "26025aa7.3da5ce"
+            ]
+        ]
+    },
+    {
+        "id": "1f758a49.24f246",
+        "type": "ui_text",
+        "z": "9fd04fc9.145918",
+        "group": "42b92ad.7d002d4",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Dominant Facial Emotional Expression",
+        "format": "{{msg.max}}",
+        "layout": "row-spread",
+        "x": 1160,
+        "y": 360,
         "wires": []
     },
     {
-        "id": "cda7a1cc.ed4c3",
-        "type": "ui_group",
-        "z": "",
-        "name": "Take a Photo!! :)",
-        "tab": "c6f60837.2a74e8",
-        "disp": true,
+        "id": "982649b4.c20f2",
+        "type": "ui_template",
+        "z": "9fd04fc9.145918",
+        "group": "42b92ad.7d002d4",
+        "name": "Image",
+        "order": 1,
         "width": "7",
-        "collapse": false
+        "height": "6",
+        "format": "<div ng-bind-html=\"msg.payload\"></div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "templateScope": "local",
+        "x": 690,
+        "y": 240,
+        "wires": [
+            []
+        ]
     },
     {
-        "id": "c6f60837.2a74e8",
-        "type": "ui_tab",
-        "z": "",
-        "name": "Home",
-        "icon": "dashboard",
-        "disabled": false,
-        "hidden": false
+        "id": "26025aa7.3da5ce",
+        "type": "base64",
+        "z": "9fd04fc9.145918",
+        "name": "",
+        "action": "",
+        "property": "payload",
+        "x": 300,
+        "y": 240,
+        "wires": [
+            [
+                "688c6bdb.a93f2c",
+                "23796f71.fb8648",
+                "cbe6eaea.307d9"
+            ]
+        ]
+    },
+    {
+        "id": "722c1853.7d77",
+        "type": "function",
+        "z": "9fd04fc9.145918",
+        "name": "Dominant Emotion",
+        "func": "msg.max = Object.keys(msg.payload.faces[0].attributes.emotion).reduce((a, b) => msg.payload.faces[0].attributes.emotion[a] > msg.payload.faces[0].attributes.emotion[b] ? a : b); \n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 850,
+        "y": 300,
+        "wires": [
+            [
+                "1f758a49.24f246",
+                "2403d635.bbd122"
+            ]
+        ]
+    },
+    {
+        "id": "2403d635.bbd122",
+        "type": "cloudant out",
+        "z": "9fd04fc9.145918",
+        "name": "",
+        "cloudant": "",
+        "database": "faceplusplus",
+        "service": "dhh-demo-cloudantNoSQLDB",
+        "payonly": false,
+        "operation": "insert",
+        "x": 1070,
+        "y": 300,
+        "wires": []
     }
 ]
