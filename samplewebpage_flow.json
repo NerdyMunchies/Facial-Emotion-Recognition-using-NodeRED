@@ -1,0 +1,146 @@
+[
+    {
+        "id": "a63afdbb.b5ec3",
+        "type": "tab",
+        "label": "Sample Web Page",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "aceab0b5.2afc48",
+        "type": "http response",
+        "z": "a63afdbb.b5ec3",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 1290,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "5cea543e.b89f7c",
+        "type": "http in",
+        "z": "a63afdbb.b5ec3",
+        "name": "",
+        "url": "/samplewebapp",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 120,
+        "y": 280,
+        "wires": [
+            [
+                "4a14798a.8cad3"
+            ]
+        ]
+    },
+    {
+        "id": "4a14798a.8cad3",
+        "type": "change",
+        "z": "a63afdbb.b5ec3",
+        "name": "Headers",
+        "rules": [
+            {
+                "t": "set",
+                "p": "headers",
+                "pt": "msg",
+                "to": "{\"Content-Type\":\"text/plain\"}",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 320,
+        "y": 280,
+        "wires": [
+            [
+                "deb20294.6e909"
+            ]
+        ]
+    },
+    {
+        "id": "4d390745.d656c8",
+        "type": "template",
+        "z": "a63afdbb.b5ec3",
+        "name": "HTML",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <title>Cards of Disability (people of determination)s</title>\n  <meta charset=\"utf-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  <link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\">\n  <link href=\"https://fonts.googleapis.com/css?family=Lato\" rel=\"stylesheet\" type=\"text/css\">\n  <link href=\"https://fonts.googleapis.com/css?family=Montserrat\" rel=\"stylesheet\" type=\"text/css\">\n  <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js\"></script>\n  <script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js\"></script>\n  <style>\n  {{style}}\n  </style>\n</head>\n<body id=\"myPage\" data-spy=\"scroll\" data-target=\".navbar\" data-offset=\"50\">\n\n<nav class=\"navbar navbar-default navbar-fixed-top\">\n  <div class=\"container-fluid\">\n    <div class=\"navbar-header\">\n      <button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\"#myNavbar\">\n        <span class=\"icon-bar\"></span>\n        <span class=\"icon-bar\"></span>\n        <span class=\"icon-bar\"></span>                        \n      </button>\n      <a class=\"navbar-brand\" href=\"#myPage\">People of Determination</a>\n    </div>\n    <div class=\"collapse navbar-collapse\" id=\"myNavbar\">\n      <ul class=\"nav navbar-nav navbar-right\">\n        <li><a href=\"#myPage\">HOME</a></li>\n        <li><a href=\"#podCards\">PEOPLE OF DETERMINATION CARDS</a></li>\n        <li><a href=\"#contact\">CONTACT</a></li>\n      </ul>\n    </div>\n  </div>\n</nav>\n\n<div id=\"myCarousel\" class=\"carousel slide\" data-ride=\"carousel\">\n    <!-- Indicators -->\n    <ol class=\"carousel-indicators\">\n      <li data-target=\"#myCarousel\" data-slide-to=\"0\" class=\"active\"></li>\n      <li data-target=\"#myCarousel\" data-slide-to=\"1\"></li>\n    </ol>\n\n    <!-- Wrapper for slides -->\n    <div class=\"carousel-inner\" role=\"listbox\">\n      <div class=\"item active\">\n        <img src=\"https://ibm.box.com/shared/static/751np5d09ow1b7yey76uwqlwahztgfks.jpg\" alt=\"People of Determination\" width=\"100%\" height=\"700\">\n        <div class=\"carousel-caption\">\n          <h3>People of Determination</h3>\n          <p>Dubai cares about people of determination irrespective of whether they are citizens, residents or visitors. The UAE Guardian's Association provides social and psychological support for parents and guardians of people of determination.</p>\n        </div>      \n      </div>\n    \n      <div class=\"item\">\n        <img src=\"https://ibm.box.com/shared/static/2jb36scajyaxr9d6lxcidvmb89gmjxer.jpg\" alt=\"People of Determination Cards\" width=\"100%\" height=\"700\">\n        <div class=\"carousel-caption\">\n          <h3>People of Determination Cards</h3>\n          <p>Cards of Disability (people of determination) is a data set for personal card issued by Ministry of Community Development to people of determination year2016. It is considered to be an official document indicating that the holder is disabled to ensure the rights and services established in the Federal Persons with Disabilities Law No. 29 of 2006 and the regulations and decisions issued in implementation thereof. (http://data.bayanat.ae/en_GB/dataset/card-for-people-with-disabilities-people-of-determination)</p>\n        </div>      \n      </div>\n    </div>\n\n    <!-- Left and right controls -->\n    <a class=\"left carousel-control\" href=\"#myCarousel\" role=\"button\" data-slide=\"prev\">\n      <span class=\"glyphicon glyphicon-chevron-left\" aria-hidden=\"true\"></span>\n      <span class=\"sr-only\">Previous</span>\n    </a>\n    <a class=\"right carousel-control\" href=\"#myCarousel\" role=\"button\" data-slide=\"next\">\n      <span class=\"glyphicon glyphicon-chevron-right\" aria-hidden=\"true\"></span>\n      <span class=\"sr-only\">Next</span>\n    </a>\n</div>\n\n<!-- Container (The podCards Section) -->\n<div id=\"podCards\" class=\"container text-center\">\n  <h3>PEOPLE OF DETERMINATION CARDS</h3>\n  <p><em>In most countries, signs pointing out wheelchair ramps say “disabled access”. In the UAE, however, they say “people of determination”. The new term was launched in April 2017 by HH Sheikh Mohammed bin Rashid Al Maktoum, vice president of the UAE and ruler of Dubai, as part of his national strategy for empowering people with disabilities.</em></p>\n  <p>Cards of Disability (people of determination) is a data set for personal card issued by Ministry of Community Development to people of determination year2016. It is considered to be an official document indicating that the holder is disabled to ensure the rights and services established in the Federal Persons with Disabilities Law No. 29 of 2006 and the regulations and decisions issued in implementation thereof.</p>\n    <table id=\"podCards\">\n      <tr>\n        <th>Age Groups</th>\n        <th>Emirate</th>\n        <th>Citizens/Non-Citizens</th>\n        <th>Type of Disability</th>\n        <th>Gender</th>\n        <th>Year of birth</th>\n        <th>Issue Date</th>\n        <th>Nationality</th>\n      </tr>\n      \n      {{#payload}}\n      <tr>\n        <td>{{{Age Groups}}}</td>\n        <td>{{{Emirate}}}</td>\n        <td>{{{Citizens-Non-Citizens}}}</td>\n        <td>{{{type of disability}}}</td>\n        <td>{{{Gender}}}</td>\n        <td>{{{Year of birth}}}</td>\n        <td>{{{Issue Date}}}</td>\n        <td>{{{nationality}}}</td>\n      </tr>\n    {{/payload}}\n    </table>\n  <br>\n</div>\n\n<!-- Container (Contact Section) -->\n<div id=\"contact\" class=\"container\">\n  <h3 class=\"text-center\">Contact</h3>\n  <p class=\"text-center\"><em>Details of who to contact in case of emergency</em></p>\n\n  <div class=\"row\">\n    <div class=\"col-md-4\">\n      <p><span class=\"glyphicon glyphicon-map-marker\"></span>  Some location</p>\n      <p><span class=\"glyphicon glyphicon-phone\"></span>  Phone: +123 45 6666666</p>\n      <p><span class=\"glyphicon glyphicon-envelope\"></span>  Email: someemail@email.com</p>\n  <br> \n  </div>\n  </div>\n  </div>\n\n\n<!-- Footer -->\n<footer class=\"text-center\">\n  <a class=\"up-arrow\" href=\"#myPage\" data-toggle=\"tooltip\" title=\"TO TOP\">\n    <span class=\"glyphicon glyphicon-chevron-up\"></span>\n  </a><br><br>\n  <p>Built By <a href=\"\" data-toggle=\"tooltip\" title=\"Developer Experience Advocate\">Mahitab Hassan</a>\n</footer>\n\n<script>\n$(document).ready(function(){\n  // Initialize Tooltip\n  $('[data-toggle=\"tooltip\"]').tooltip(); \n  \n  // Add smooth scrolling to all links in navbar + footer link\n  $(\".navbar a, footer a[href='#myPage']\").on('click', function(event) {\n\n    // Make sure this.hash has a value before overriding default behavior\n    if (this.hash !== \"\") {\n\n      // Prevent default anchor click behavior\n      event.preventDefault();\n\n      // Store hash\n      var hash = this.hash;\n\n      // Using jQuery's animate() method to add smooth page scroll\n      // The optional number (900) specifies the number of milliseconds it takes to scroll to the specified area\n      $('html, body').animate({\n        scrollTop: $(hash).offset().top\n      }, 900, function(){\n   \n        // Add hash (#) to URL when done scrolling (default click behavior)\n        window.location.hash = hash;\n      });\n    } // End if\n  });\n})\n</script>\n\n</body>\n</html>",
+        "output": "str",
+        "x": 1150,
+        "y": 280,
+        "wires": [
+            [
+                "aceab0b5.2afc48"
+            ]
+        ]
+    },
+    {
+        "id": "deb20294.6e909",
+        "type": "http request",
+        "z": "a63afdbb.b5ec3",
+        "name": "Get Cards of People of Determination",
+        "method": "GET",
+        "ret": "obj",
+        "url": "http://data.bayanat.ae/api/action/datastore_search?resource_id=2bb19373-8ab6-4d67-9d51-f820709fb29e",
+        "tls": "",
+        "x": 570,
+        "y": 280,
+        "wires": [
+            [
+                "2ab13d62.3aee7a"
+            ]
+        ]
+    },
+    {
+        "id": "2ab13d62.3aee7a",
+        "type": "change",
+        "z": "a63afdbb.b5ec3",
+        "name": "Extract Records",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.result.records",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 840,
+        "y": 280,
+        "wires": [
+            [
+                "f680e10c.fffa6"
+            ]
+        ]
+    },
+    {
+        "id": "f680e10c.fffa6",
+        "type": "template",
+        "z": "a63afdbb.b5ec3",
+        "name": "CSS",
+        "field": "style",
+        "fieldType": "msg",
+        "format": "css",
+        "syntax": "mustache",
+        "template": "table {\n  font-family: arial, sans-serif;\n  border-collapse: collapse;\n  width: 100%;\n}\n\ntd, th {\n  border: 1px solid #dddddd;\n  text-align: left;\n  padding: 8px;\n}\n\ntr:nth-child(even) {\n  background-color: #dddddd;\n}\n\nbody {\n      font: 400 15px/1.8 Lato, sans-serif;\n      color: #777;\n  }\n  h3 {\n      margin: 10px 0 30px 0;\n      letter-spacing: 10px;      \n      font-size: 20px;\n      color: #111;\n  }\n  .container {\n      padding: 80px 120px;\n  }\n\n  .carousel-inner img {\n      -webkit-filter: grayscale(90%);\n      filter: grayscale(90%); /* make all photos black and white */ \n      width: 100%; /* Set width to 100% */\n      margin: auto;\n  }\n  .carousel-caption h3 {\n      color: #fff !important;\n  }\n  @media (max-width: 600px) {\n    .carousel-caption {\n      display: none; /* Hide the carousel text when the screen is less than 600 pixels wide */\n    }\n  }\n\n  .nav-tabs li a {\n      color: #777;\n  }\n  .navbar {\n      font-family: Montserrat, sans-serif;\n      margin-bottom: 0;\n      background-color: #2d2d30;\n      border: 0;\n      font-size: 11px !important;\n      letter-spacing: 4px;\n      opacity: 0.9;\n  }\n  .navbar li a, .navbar .navbar-brand { \n      color: #d5d5d5 !important;\n  }\n  .navbar-nav li a:hover {\n      color: #fff !important;\n  }\n  .navbar-nav li.active a {\n      color: #fff !important;\n      background-color: #29292c !important;\n  }\n  .navbar-default .navbar-toggle {\n      border-color: transparent;\n  }\n\n  footer {\n      background-color: #2d2d30;\n      color: #f5f5f5;\n      padding: 32px;\n  }\n  footer a {\n      color: #f5f5f5;\n  }\n  footer a:hover {\n      color: #777;\n      text-decoration: none;\n  }  \n",
+        "output": "str",
+        "x": 1010,
+        "y": 280,
+        "wires": [
+            [
+                "4d390745.d656c8"
+            ]
+        ]
+    }
+]

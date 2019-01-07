@@ -1,0 +1,209 @@
+[
+    {
+        "id": "9fd04fc9.145918",
+        "type": "tab",
+        "label": "Emotion Recognition",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "23796f71.fb8648",
+        "type": "function",
+        "z": "9fd04fc9.145918",
+        "name": "Emotion Recognition Face++",
+        "func": "var fpp = global.get('fpp');\n\nfpp.setApiKey('<APIKEY>');\n\nfpp.setApiSecret('<APISECRET>');\n \n \nvar parameters = {\n \nreturn_attributes: 'gender,age,emotion',\nimage_base64: msg.payload\n \n};\n \nfpp.post('/detect', parameters, function(err, res) {\n \n    node.send({payload:res});\n \n});\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 580,
+        "y": 300,
+        "wires": [
+            [
+                "d8c51ce7.982ca8",
+                "722c1853.7d77"
+            ]
+        ]
+    },
+    {
+        "id": "d8c51ce7.982ca8",
+        "type": "debug",
+        "z": "9fd04fc9.145918",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "x": 850,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "cbe6eaea.307d9",
+        "type": "template",
+        "z": "9fd04fc9.145918",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<img width=\"360px\" height=\"280px\" src=\"data:image/png;base64,{{{payload}}}\">",
+        "output": "str",
+        "x": 520,
+        "y": 240,
+        "wires": [
+            [
+                "982649b4.c20f2"
+            ]
+        ]
+    },
+    {
+        "id": "688c6bdb.a93f2c",
+        "type": "debug",
+        "z": "9fd04fc9.145918",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "x": 510,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "163d88ef.82dec7",
+        "type": "inject",
+        "z": "9fd04fc9.145918",
+        "name": "",
+        "topic": "",
+        "payload": "[]",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 530,
+        "y": 360,
+        "wires": [
+            [
+                "982649b4.c20f2",
+                "1f758a49.24f246"
+            ]
+        ]
+    },
+    {
+        "id": "9d832fd5.548878",
+        "type": "camera",
+        "z": "9fd04fc9.145918",
+        "name": "",
+        "x": 130,
+        "y": 240,
+        "wires": [
+            [
+                "26025aa7.3da5ce"
+            ]
+        ]
+    },
+    {
+        "id": "1f758a49.24f246",
+        "type": "ui_text",
+        "z": "9fd04fc9.145918",
+        "group": "42b92ad.7d002d4",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Dominant Facial Emotional Expression",
+        "format": "{{msg.max}}",
+        "layout": "row-spread",
+        "x": 1160,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "982649b4.c20f2",
+        "type": "ui_template",
+        "z": "9fd04fc9.145918",
+        "group": "42b92ad.7d002d4",
+        "name": "Image",
+        "order": 1,
+        "width": "7",
+        "height": "6",
+        "format": "<div ng-bind-html=\"msg.payload\"></div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "templateScope": "local",
+        "x": 690,
+        "y": 240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "26025aa7.3da5ce",
+        "type": "base64",
+        "z": "9fd04fc9.145918",
+        "name": "",
+        "action": "",
+        "property": "payload",
+        "x": 300,
+        "y": 240,
+        "wires": [
+            [
+                "688c6bdb.a93f2c",
+                "23796f71.fb8648",
+                "cbe6eaea.307d9"
+            ]
+        ]
+    },
+    {
+        "id": "722c1853.7d77",
+        "type": "function",
+        "z": "9fd04fc9.145918",
+        "name": "Dominant Emotion",
+        "func": "msg.max = Object.keys(msg.payload.faces[0].attributes.emotion).reduce((a, b) => msg.payload.faces[0].attributes.emotion[a] > msg.payload.faces[0].attributes.emotion[b] ? a : b); \n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 850,
+        "y": 300,
+        "wires": [
+            [
+                "1f758a49.24f246",
+                "2403d635.bbd122"
+            ]
+        ]
+    },
+    {
+        "id": "2403d635.bbd122",
+        "type": "cloudant out",
+        "z": "9fd04fc9.145918",
+        "name": "",
+        "cloudant": "",
+        "database": "faceplusplus",
+        "service": "dhh-demo-cloudantNoSQLDB",
+        "payonly": false,
+        "operation": "insert",
+        "x": 1070,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "42b92ad.7d002d4",
+        "type": "ui_group",
+        "z": "",
+        "name": "Facial Emotion Recognition",
+        "tab": "52bdd29d.df101c",
+        "disp": false,
+        "width": "7",
+        "collapse": false
+    },
+    {
+        "id": "52bdd29d.df101c",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]
